@@ -1,11 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createStore,combineReducers} from 'redux';
+import {Provider} from 'react-redux';
 
-export default function App() {
+import productReducer from './store/reducer/product';
+import ProductNavigator from './navigation/ShopNavigator';
+const App = props=> {
+  const rootReducer=combineReducers({
+    products:productReducer
+  })
+  const store=createStore(rootReducer)
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Provider store={store}>
+      <ProductNavigator/>
+    </Provider>
+    
   );
 }
 
@@ -17,3 +26,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
