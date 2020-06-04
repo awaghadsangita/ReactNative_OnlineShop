@@ -1,37 +1,22 @@
 import React from 'react';
-import {FlatList,Text,View,StyleSheet,Image, Button} from 'react-native';
+import {FlatList,StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 
-
+import ProductItem from '../../components/ProductItem'
 const ProductOverviewScreen =props=>{
     const products=useSelector(state=>state.products.availableProducts)
-    const productItem=itemData=>{
-        return(
-            <View style={styles.container}>
-            <View style={styles.containerItem}>
-                <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={{uri:itemData.item.image}}/>
-                </View>
-                <View>
-                <Text style={styles.title}>{itemData.item.title}</Text>
-                <Text style={styles.price}>${itemData.item.price}</Text>
-                </View>
-                <View style={styles.buttonContainer}>
-                <Button style={styles.button} title="View Details"/>
-                <Button style={styles.button} title="Add To Cart"/>
-                </View>
-            </View>
-            </View>
-        );
-
-    }
     return(
         <FlatList
             data={products}
             keyExtractor={item=>item.id}
-            renderItem={productItem}
-        />
-    )
+            renderItem={productItem=><ProductItem
+                                        title={productItem.item.title}
+                                        price={productItem.item.price}
+                                        image={productItem.item.image}
+                                        onViewDetails={()=>
+                                            props.navigation.navigate("ProductDetails",{productId:productItem.item.id,productTitle:productItem.item.title})}
+                                        />}
+    />)
 }
 
 ProductOverviewScreen.navigationOptions=()=>{
