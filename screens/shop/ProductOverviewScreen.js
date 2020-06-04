@@ -1,10 +1,15 @@
 import React from 'react';
 import {FlatList,StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
+import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
 import ProductItem from '../../components/ProductItem'
+import * as cartAction from '../../store/action/cart';
+import HeaderButton from '../../components/UI/HeaderButton';
+
 const ProductOverviewScreen =props=>{
-    const products=useSelector(state=>state.products.availableProducts)
+    const products=useSelector(state=>state.products.availableProducts);
+    const dispatch=useDispatch()
     return(
         <FlatList
             data={products}
@@ -15,12 +20,26 @@ const ProductOverviewScreen =props=>{
                                         image={productItem.item.image}
                                         onViewDetails={()=>
                                             props.navigation.navigate("ProductDetails",{productId:productItem.item.id,productTitle:productItem.item.title})}
+                                        onAddToCart={()=>{
+                                            dispatch(cartAction.addToCart(productItem.item))
+                                        }}
                                         />}
     />)
 }
 
-ProductOverviewScreen.navigationOptions=()=>{
-    return {title:"All Products"}
+ProductOverviewScreen.navigationOptions=navigationData=>{
+    return {
+        title:"All Products",
+        headerRight:()=><HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    title='cart'
+                    iconName='md-cart'
+                    onPress={()=>{
+                        navigationData.navigation.navigate('Cart')
+                    }}
+                />
+            </HeaderButtons>
+    }
 }
 
 const styles=StyleSheet.create({

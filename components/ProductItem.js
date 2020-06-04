@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text,View,StyleSheet,Image, Button,TouchableOpacity} from 'react-native';
+import {
+    Text,
+    View,
+    StyleSheet,
+    Image, 
+    Button,
+    TouchableOpacity
+} from 'react-native';
 
 const productItem=props=>{
     return(
@@ -19,7 +26,9 @@ const productItem=props=>{
             <Button style={styles.button} 
                     title="View Details" 
                     onPress={props.onViewDetails}/>
-            <Button style={styles.button} title="Add To Cart"/>
+            <Button style={styles.button} 
+                    title="Add To Cart"
+                    onPress={props.onAddToCart}/>
             </View>
         </View>
         </View>
