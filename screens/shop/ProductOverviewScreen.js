@@ -25,11 +25,6 @@ const ProductOverviewScreen =props=>{
                                         title={productItem.item.title}
                                         price={productItem.item.price}
                                         image={productItem.item.image}
-                                        // onViewDetails={()=>
-                                        //     props.navigation.navigate("ProductDetails",{productId:productItem.item.id,productTitle:productItem.item.title})}
-                                        // onAddToCart={()=>{
-                                        //     dispatch(cartAction.addToCart(productItem.item))
-                                        // }}
                                         onSelect={
                                             selectItemHandler(productItem.item.id,productItem.item.title)
                                         }
