@@ -1,4 +1,5 @@
 import {ADD_TO_CART,REMOVE_CART_ITEM} from '../action/cart';
+import {ADD_ORDER} from '../action/order';
 import CartItem from '../../model/CartItem';
 
 initialState={
@@ -66,6 +67,8 @@ export default (state=initialState,action)=>{
                     totalAmount:(state.totalAmount-selectedCartItem.productPrice).toFixed(2)
                 }
             }
+            case ADD_ORDER:
+                return initialState;
     }
 
     return state
