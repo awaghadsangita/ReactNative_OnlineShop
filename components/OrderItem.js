@@ -28,7 +28,7 @@ const OrderItem =props=>{
           ))}
         </View>
       )}
-          </View>  )
+</View>  )
         
 
 }

@@ -13,7 +13,7 @@ const productItem=props=>{
         <View style={styles.container}>
         <View style={styles.containerItem}>
             <TouchableOpacity style={styles.imageViewContainer} 
-                opPress={props.onViewDetails}>
+                opPress={props.onSelect}>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{uri:props.image}}/>
             </View>
@@ -23,13 +23,9 @@ const productItem=props=>{
             <Text style={styles.price}>${props.price}</Text>
             </View>
             <View style={styles.buttonContainer}>
-            <Button style={styles.button} 
-                    title="View Details" 
-                    onPress={props.onViewDetails}/>
-            <Button style={styles.button} 
-                    title="Add To Cart"
-                    onPress={props.onAddToCart}/>
+            {props.children}
             </View>
+            
         </View>
         </View>
     );
@@ -46,7 +42,7 @@ const styles=StyleSheet.create({
         borderColor:'black',
         borderWidth:1,
         marginHorizontal:20,
-        marginVertical:10
+        marginVertical:10,
     },
     imageViewContainer:{
         width:'100%',
@@ -79,11 +75,12 @@ const styles=StyleSheet.create({
     },
     buttonContainer:{
         flexDirection:'row',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        paddingBottom:20
     },
     button:{
         color:'#4a0803',
-        width:150
+        width:150,
     }
 
 })

@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList,StyleSheet} from 'react-native';
+import {FlatList,Button,StyleSheet} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
 import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
@@ -10,6 +10,13 @@ import HeaderButton from '../../components/UI/HeaderButton';
 const ProductOverviewScreen =props=>{
     const products=useSelector(state=>state.products.availableProducts);
     const dispatch=useDispatch()
+
+    const selectItemHandler= (id,title)=>{
+        props.navigation.navigate('ProductDetails',{
+            productId:id,
+            productTitle:title
+        })
+    }
     return(
         <FlatList
             data={products}
@@ -18,12 +25,23 @@ const ProductOverviewScreen =props=>{
                                         title={productItem.item.title}
                                         price={productItem.item.price}
                                         image={productItem.item.image}
-                                        onViewDetails={()=>
-                                            props.navigation.navigate("ProductDetails",{productId:productItem.item.id,productTitle:productItem.item.title})}
-                                        onAddToCart={()=>{
-                                            dispatch(cartAction.addToCart(productItem.item))
-                                        }}
-                                        />}
+                                        // onViewDetails={()=>
+                                        //     props.navigation.navigate("ProductDetails",{productId:productItem.item.id,productTitle:productItem.item.title})}
+                                        // onAddToCart={()=>{
+                                        //     dispatch(cartAction.addToCart(productItem.item))
+                                        // }}
+                                        onSelect={
+                                            selectItemHandler(productItem.item.id,productItem.item.title)
+                                        }
+                                        >
+                                        <Button style={styles.button} 
+                                            title="View Details" 
+                                            onPress={()=>selectItemHandler(productItem.item.id,productItem.item.title)}/>
+                                        <Button style={styles.button} 
+                                            title="Add To Cart"
+                                            onPress={()=>{dispatch(cartAction.addToCart(productItem.item))}}/>
+                                        </ProductItem>
+                                        }
     />)
 }
 
@@ -92,7 +110,7 @@ const styles=StyleSheet.create({
     },
     button:{
         color:'#4a0803',
-        width:150
+        width:170
     }
 
 })
