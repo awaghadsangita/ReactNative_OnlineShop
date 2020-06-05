@@ -44,10 +44,6 @@ const styles=StyleSheet.create({
         justifyContent:'center',
         alignItems:'center'
     },
-    button:{
-        backgroundColor:'#4a0803',
-        // color:"white"
-    },
     price:{
         fontSize:20,
         color:'#4a0803',
