@@ -4,7 +4,6 @@ import {
     View,
     StyleSheet,
     Image, 
-    Button,
     TouchableOpacity
 } from 'react-native';
 
@@ -59,8 +58,6 @@ const styles=StyleSheet.create({
     image:{
         width:'100%',
         height:'100%',
-        // marginHorizontal:10,
-        // paddingVertical:10
     },
     title:{
         fontSize:20,
@@ -78,10 +75,6 @@ const styles=StyleSheet.create({
         justifyContent:'space-around',
         paddingBottom:20
     },
-    button:{
-        color:'#4a0803',
-        width:150,
-    }
-
+    
 })
 export default productItem;
