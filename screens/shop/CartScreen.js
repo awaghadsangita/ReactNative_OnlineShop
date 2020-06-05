@@ -4,7 +4,7 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import CartItem from '../../components/CartItem';
 import * as cartAction from '../../store/action/cart';
-import * as ordersActions from '../../store/action/cart';
+import * as ordersActions from '../../store/action/order';
 
 const CartScreen = props =>{
     const cartTotalAmount=useSelector(state=>state.cart.totalAmount)
@@ -24,7 +24,7 @@ const CartScreen = props =>{
             }
             return transformedCartItem.sort((a,b)=>a.productId>b.productId?1:-1)
         });
-        console.log(cartItems)
+        // console.log(cartItems)
     return (
     <View style={styles.container}>
         <View style={styles.summary}>
@@ -45,6 +45,7 @@ const CartScreen = props =>{
                         price={itemData.item.price}
                         quantity={itemData.item.quantity}
                         sum={itemData.item.sum}
+                        deletable
                         onRemove={()=>{
                             dispatch(cartAction.removeCartItem(itemData.item.productId))
                         }}
@@ -53,6 +54,12 @@ const CartScreen = props =>{
             />
         </View>
     </View>)
+}
+
+CartScreen.navigationOptions=navigationData=>{
+    return{
+        title:'Your Cart Details'
+    }
 }
 
 const styles=StyleSheet.create({
