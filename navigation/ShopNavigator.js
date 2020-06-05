@@ -9,6 +9,7 @@ import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 import CartScreen from '../screens/shop/CartScreen';
 import OrderScreen from '../screens/shop/OrdersScreen';
 
+import UserProductScreen from '../screens/user/UserProductScreen';
 const ProductNavigator=createStackNavigator({
     ProductOverview:{
         screen:ProductOverviewScreen,
@@ -49,9 +50,31 @@ const OrderNavigator=createStackNavigator({
         headerTintColor:'white'
     }
 })
+
+const AdminNavigator=createStackNavigator({
+    UserProducts:{
+        screen:UserProductScreen
+    },
+},{
+    navigationOptions:{
+        drawerIcon:drawerConfig=><Ionicons
+                                name="md-list"
+                                size={23}
+                                color={drawerConfig.tintColor}/>
+    },
+    
+    defaultNavigationOptions:{
+        headerStyle:{
+            backgroundColor:"#4a0803"
+        },
+        headerTintColor:'white'
+    }
+})
+
 const ShopNavigator=createDrawerNavigator({
     Products:ProductNavigator,
-    Order:OrderNavigator
+    Order:OrderNavigator,
+    Admin:AdminNavigator
 },{
     contentOptions:{
         activeTintColor:"#4a0803"
