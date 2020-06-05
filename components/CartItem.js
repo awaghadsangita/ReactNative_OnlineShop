@@ -11,13 +11,13 @@ const CartItem = props =>{
             </View>
             <View style={styles.container}>
                 <Text styel={styles.total}>Total:{props.sum}</Text>
-                <TouchableOpacity onPress={props.onRemove}>
+                {props.deletable && <TouchableOpacity onPress={props.onRemove}>
                     <Ionicons
                         name='md-trash'
                         size={23}
                         color='red'
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
             
         </View>
