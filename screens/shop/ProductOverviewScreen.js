@@ -25,7 +25,7 @@ const ProductOverviewScreen =props=>{
                                         title={productItem.item.title}
                                         price={productItem.item.price}
                                         image={productItem.item.image}
-                                        onSelect={
+                                        onSelect={()=>
                                             selectItemHandler(productItem.item.id,productItem.item.title)
                                         }
                                         >
