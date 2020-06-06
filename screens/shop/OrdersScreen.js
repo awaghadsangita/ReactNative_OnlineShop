@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList,Text,StyleSheet} from 'react-native';
+import {View,FlatList,Text,StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 

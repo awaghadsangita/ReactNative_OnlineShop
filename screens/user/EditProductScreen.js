@@ -24,11 +24,13 @@ const EditProductScreen =props=>{
             console.log("Edit",image);
             dispatch(productActions.createProduct(title,description,image.toString(),price))
         }
+        props.navigation.goBack();
     },[dispatch,title,image,price,description]);
 
     useEffect(()=>{
         props.navigation.setParams({submit:submitHandler})
     },[submitHandler])
+
     return(
         <ScrollView>
             <View style={styles.form}>
