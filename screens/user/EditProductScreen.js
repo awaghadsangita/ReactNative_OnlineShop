@@ -1,7 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, useCallback, useEffect} from 'react';
 import {View,Text,StyleSheet,TextInput,ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
+import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
+import HeaderButton from '../../components/UI/HeaderButton';
 const EditProductScreen =props=>{
     const prodId=props.navigation.getParam('productId')
     const editedProduct=useSelector(state=>
@@ -11,6 +13,14 @@ const EditProductScreen =props=>{
     const [image,setImage]=useState(editedProduct?editedProduct.image:'')
     const [price,setPrice]=useState(editedProduct?editedProduct.price:'')
     const [description,setDescription]=useState(editedProduct?editedProduct.description:'')
+
+    const submitHandler=useCallback(()=>{
+        console.log('submitting');
+    },[])
+
+    useEffect(()=>{
+        props.navigation.setParams({submit:submitHandler})
+    },[submitHandler])
     return(
         <ScrollView>
             <View style={styles.form}>
@@ -53,7 +63,18 @@ const EditProductScreen =props=>{
     )
 }
 EditProductScreen.navigationOptions=navigationData=>{
-    
+    const productId=navigationData.navigation.getParam('productId');
+    const submitFunction=navigationData.navigation.getParam('submit');
+     return {
+            title:productId?"Edit Product":"Add Product",
+            headerRight:()=><HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+                title='save'
+                iconName='md-checkmark'
+                onPress={submitFunction}
+            />
+        </HeaderButtons>,
+        } 
 }
 const styles=StyleSheet.create({
     form:{
