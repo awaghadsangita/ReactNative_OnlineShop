@@ -10,6 +10,8 @@ import CartScreen from '../screens/shop/CartScreen';
 import OrderScreen from '../screens/shop/OrdersScreen';
 
 import UserProductScreen from '../screens/user/UserProductScreen';
+import EditProductScreen from '../screens/user/EditProductScreen';
+
 const ProductNavigator=createStackNavigator({
     ProductOverview:{
         screen:ProductOverviewScreen,
@@ -55,6 +57,7 @@ const AdminNavigator=createStackNavigator({
     UserProducts:{
         screen:UserProductScreen
     },
+    EditProduct:{screen:EditProductScreen}
 },{
     navigationOptions:{
         drawerIcon:drawerConfig=><Ionicons
