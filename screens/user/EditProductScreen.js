@@ -1,22 +1,30 @@
 import React,{useState, useCallback, useEffect} from 'react';
 import {View,Text,StyleSheet,TextInput,ScrollView} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/UI/HeaderButton';
+import * as productActions from '../../store/action/product';
+
 const EditProductScreen =props=>{
     const prodId=props.navigation.getParam('productId')
     const editedProduct=useSelector(state=>
         state.products.userProducts.find(prod=>prod.id==prodId));
 
     const [title,setTitle]=useState(editedProduct?editedProduct.title:'')
-    const [image,setImage]=useState(editedProduct?editedProduct.image:'')
+    const [image,setImage]=useState(editedProduct?editedProduct.image.toString():'')
     const [price,setPrice]=useState(editedProduct?editedProduct.price:'')
     const [description,setDescription]=useState(editedProduct?editedProduct.description:'')
 
+    const dispatch=useDispatch();
     const submitHandler=useCallback(()=>{
-        console.log('submitting');
-    },[])
+        if(editedProduct){
+            dispatch(productActions.updateProduct(editedProduct.id,title,description,image.toString()))
+        }else{
+            console.log("Edit",image);
+            dispatch(productActions.createProduct(title,description,image.toString(),price))
+        }
+    },[dispatch,title,image,price,description]);
 
     useEffect(()=>{
         props.navigation.setParams({submit:submitHandler})
