@@ -21,7 +21,7 @@ export default (state=initialState,action)=>{
                 new Date().toString(),
                 'u1',
                 action.productData.title,
-                action.productDate.image,
+                action.productDate.image.toString(),
                 action.productData.description,
                 action.productData.price
             )
