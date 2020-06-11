@@ -7,19 +7,33 @@ export const deleteProduct=productId=>{
 }
 
 export const createProduct=(title,description,image,price)=>{
-    return{
-        type:CREATE_PRODUCT,
-        productData:{
-            title,
-            description,
-            image:image.toString(),
-            price,
-        }
+    return async dispatch=>{
+        const response= await fetch("https://recipewebsite-95fbf.firebaseio.com/Products.json",{
+            method:'POST',
+            header:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({
+                title,
+                description,
+                image,
+                price
+            })
+        })
+        const resData=await response.json();
+        console.log(resData)
+        dispatch({
+            type:CREATE_PRODUCT,
+            productData:{
+                title,
+                description,
+                image,
+                price,
+        }})
     }
 }
 
 export const updateProduct=(id,title,description,image)=>{
-    console.log("===>",image);
     return {
         type:UPDATE_PRODUCT,
         pid:id,
