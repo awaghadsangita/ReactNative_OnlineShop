@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import {FlatList,Button,StyleSheet} from 'react-native';
+import React, {useEffect, useState,useCallback } from 'react';
+import {FlatList,Button,StyleSheet,ActivityIndicator, View,Text} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
 import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
@@ -9,6 +9,9 @@ import HeaderButton from '../../components/UI/HeaderButton';
 import * as productAction from '../../store/action/product';
 
 const ProductOverviewScreen =props=>{
+    const [isLoading,setIsLoading]=useState(false);
+    const [error,setError]=useState();
+
     const products=useSelector(state=>state.products.availableProducts);
     const dispatch=useDispatch()
 
@@ -18,9 +21,42 @@ const ProductOverviewScreen =props=>{
             productTitle:title
         })
     }
+    const loadingProducts=useCallback(async ()=>{
+        setError(null);
+        setIsLoading(true);
+        try{
+            await dispatch(productAction.fetchProduct())
+        }catch(err){
+            setError(err.message)
+        }
+        setIsLoading(false);
+    },[dispatch,setError,setIsLoading])
     useEffect(()=>{
-        dispatch(productAction.fetchProduct())
+        loadingProducts();
     },[dispatch])
+
+    if(error){
+        return(<View style={styles.center}>
+            <Text>Error Occured!!!</Text>
+        </View>)
+    }
+
+    if(isLoading){
+        return(
+            <View style={styles.center}>
+                <ActivityIndicator size='large' color="#4a0803"/>
+            </View>
+        )
+    }
+
+    if(!isLoading && products.length==0){
+        return(
+            <View style={styles.center}>
+                <Text>No Products to display</Text>
+                <Button title="Try again" onPress={loadingProducts}/>
+            </View>
+        )
+    }
     return(
         <FlatList
             data={products}
@@ -110,6 +146,11 @@ const styles=StyleSheet.create({
     button:{
         color:'#4a0803',
         width:170
+    },
+    center:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
     }
 
 })

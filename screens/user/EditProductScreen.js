@@ -52,7 +52,7 @@ const EditProductScreen = props => {
       title: editedProduct ? editedProduct.title : '',
       image: editedProduct ? editedProduct.image : '',
       description: editedProduct ? editedProduct.description : '',
-      price: ''
+      price: editedProduct?editedProduct.price:''
     },
     inputValidities: {
       title: editedProduct ? true : false,
@@ -76,7 +76,8 @@ const EditProductScreen = props => {
           prodId,
           formState.inputValues.title,
           formState.inputValues.description,
-          formState.inputValues.imageUrl
+          formState.inputValues.image,
+          formState.inputValues.price
         )
       );
     } else {
@@ -84,7 +85,7 @@ const EditProductScreen = props => {
         productsActions.createProduct(
           formState.inputValues.title,
           formState.inputValues.description,
-          formState.inputValues.imageUrl,
+          formState.inputValues.image,
           +formState.inputValues.price
         )
       );
