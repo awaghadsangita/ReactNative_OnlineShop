@@ -1,6 +1,6 @@
 import PRODUCTS from '../../data/Dummay-Data';
 import Product from '../../model/Product';
-import {DELETE_PRODUCT,CREATE_PRODUCT,UPDATE_PRODUCT} from '../action/product';
+import {DELETE_PRODUCT,CREATE_PRODUCT,UPDATE_PRODUCT,SET_PRODUCT} from '../action/product';
 
 const initialState={
     availableProducts:PRODUCTS,
@@ -9,6 +9,12 @@ const initialState={
 
 export default (state=initialState,action)=>{
     switch(action.type){
+        case SET_PRODUCT:{
+            return{
+                availableProducts:action.products,
+                userProducts:action.products.filter(product=>product.ownerId=='u1')
+            }
+        }//end set product case
         case DELETE_PRODUCT:{
             return {
                 ...state,
@@ -18,7 +24,7 @@ export default (state=initialState,action)=>{
         }//end delete product case
         case CREATE_PRODUCT:{
             const newProduct=new Product(
-                new Date().toString(),
+                action.productData.id,
                 'u1',
                 action.productData.title,
                 action.productDate.image.toString(),
@@ -56,8 +62,6 @@ export default (state=initialState,action)=>{
             }
 
         }//end update product case
-
-
     }
     return state;
 }
